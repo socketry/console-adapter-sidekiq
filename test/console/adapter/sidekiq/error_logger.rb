@@ -17,4 +17,15 @@ describe Sidekiq do
 		
 		expect(Sidekiq.error_handlers).to be(:include?, Console::Adapter::Sidekiq::ErrorHandler)
 	end
+	
+	with "fake job context" do
+		let(:context) {Hash.new}
+		let(:error) {RuntimeError.new("Bort")}
+		
+		it "logs exceptions" do
+			expect(Console).to receive(:error).with(::Sidekiq, error).and_return(nil)
+			
+			Console::Adapter::Sidekiq::ErrorHandler.call(error, context)
+		end
+	end
 end
