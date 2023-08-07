@@ -7,23 +7,15 @@ This guide explains how to integrate the `console-adapter-sidekiq` gem into your
 Add the gem to your project:
 
 ~~~ bash
-$ bundle add console
+$ bundle add console-adapter-sidekiq
 ~~~
 
 ## Update your Environment
 
-To add this to a Sidekiq application, update your `config/environment.rb` file:
+To add this to an application that uses Sidekiq, update your sidekiq configuration file to include the following:
 
 ~~~ ruby
-# frozen_string_literal: true
-
-# Load the Sidekiq application.
-require_relative 'application'
-
-# Setup the console adapter:
+# Setup the console adapter for Sidekiq:
 require 'console/adapter/sidekiq'
 Console::Adapter::Sidekiq.apply!
-
-# Initialize the Sidekiq application.
-Sidekiq.application.initialize!
 ~~~
